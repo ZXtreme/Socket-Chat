@@ -5,11 +5,11 @@
 <p>基于 Vue3 的 Web 端的在线聊天工具</p>
 </div>
 
-## Socket-Chat-Web 端
+## 🎃 Socket-Chat-Web 端
 
 Socket-Chat 的 web 端，基于 vue3 + socket.io + webrtc 实现，目前实现了基本的用户登陆注册、会话列表、好友列表、好友增删、好友聊天、表情包和文件的发送与接收、视频通话等功能。后期会继续完善现有功能。
 
-## 项目 Web 端简介
+## ✨ 项目 Web 端简介
 
 ### socket.io 建立双向通信
   ```
@@ -167,7 +167,7 @@ src
    └─ Login.vue                       登录注册
 ```
 
-## 补充
+## 📄 补充
 待开发项：
   - 群聊
   - 语音输入
