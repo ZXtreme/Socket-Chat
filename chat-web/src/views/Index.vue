@@ -49,6 +49,7 @@ export default defineComponent({
       // 如果 vuex 中没有用户信息，则判断是否处于登录状态
       if (!store.state.userInfo) {
         const res = await api_getLogin()
+
         if (res) store.commit('setUserInfo', res.userInfo)
         else router.push('/login')
       }

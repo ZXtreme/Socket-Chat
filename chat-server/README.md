@@ -10,7 +10,9 @@
 Socket-Chat的服务器，基于 express + mysql + socket.io 实现，目前实现了基本的用户登陆注册、会话列表逻辑、好友增删、视频通话等功能，后期会继续完善现有功能。
 
 ## ✨ 项目 server 端简介
+- utils/utils.js 工具函数与配置项
 
+  可统一修改 `服务器路径` 与 `客户端路径`，便于适配开发环境和生产环境
 - utils/db.js 采用sequelize连接数据库
   - const sequelize = new DB.Sequelize(...) 连接数据库
 models 定义数据库表结构

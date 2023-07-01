@@ -10,7 +10,8 @@
       <!-- 自定义表情选择栏 -->
       <div class="emoticon-tab" v-show="currentTab === 1" v-lazyload @click="selectEmoji($event, 1)">
         <a-upload name="file" list-type="picture-card" class="avatar-uploader emoticon-item" :data="{ emoticon: true }"
-          :show-upload-list="false" action="/api/files/upload_file" :before-upload="beforeUpload" @change="handleChange">
+          :show-upload-list="false" :action="server + '/files/upload_file'" :before-upload="beforeUpload"
+          @change="handleChange">
           <div>
             <loading-outlined v-if="imgLoading"></loading-outlined>
             <plus-outlined v-else></plus-outlined>
@@ -42,6 +43,7 @@ import { message } from 'ant-design-vue'
 import useSubscribe from '@/hooks/subscribe'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import useAUploadHook from '@/hooks/aUploadHook'
+import { serverURL } from '@/utils/utils'
 
 export default defineComponent({
   name: 'emoji-dialog',
@@ -56,6 +58,7 @@ export default defineComponent({
       // 表情包列表
       emoticonList: [],
     })
+    const server = serverURL
 
     onBeforeMount(() => {
       useSubscribe([{ msgName: 'addEmoticon', callback: addEmoticon }])
@@ -103,6 +106,7 @@ export default defineComponent({
       handleChange,
       beforeUpload,
       imgLoading,
+      server
     }
   },
 })

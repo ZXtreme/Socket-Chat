@@ -45,12 +45,17 @@ const getPHSize = function(width, height, maxWidth = 200, minWidth = 50, maxHeig
 const filePath = path.resolve(__dirname, '../../uploadFile')
 
 // 请求图片的服务器路径
-const serverURL = 'http://localhost:3000'
+const serverURL = 'http://119.91.63.11:3000'
+// const serverURL = 'http://localhost:3000'
+// 客户端路径
+const clientURL = 'http://119.91.63.11'
+// const clientURL = 'http://localhost:8080'
 
 module.exports = {
   guid,
   createSessionId,
   filePath,
   serverURL,
+  clientURL,
   getPHSize
 }

@@ -40,3 +40,10 @@ export function transToTag(content: string, size = 24) {
     return `[${$1}-${$2}]`
   })
 }
+
+// 请求图片的服务器路径
+export const serverURL = 'http://119.91.63.11:3000/api'
+// export const serverURL = 'http://localhost:3000/api'
+// socket 路径
+export const socketServerURL = 'ws://119.91.63.11:3010'
+// export const socketServerURL = 'ws://localhost:3010' 

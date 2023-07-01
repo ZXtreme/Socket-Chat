@@ -68,11 +68,8 @@ export default defineComponent({
         if (isLocal) {  // blob 可直接下载
           createTag(props.file as string)
         } else {  // http 链接是直接预览，不可下载，需要获取对应的 blob
-          let src = (props.file as string).replace(process.env.VUE_APP_DOWNLOAD, '/download')
-          // src 为 /download1687404692488.txt
-          // 配置了 proxy ，将 download 开头的 src 转变为 http://localhost:3000/1687404692488.txt
           axios
-            .get(src, {
+            .get(props.file as string, {
               responseType: 'blob',
               onDownloadProgress: (progressEvent) => {
                 state.progress = (progressEvent.loaded / progressEvent.total) * 100

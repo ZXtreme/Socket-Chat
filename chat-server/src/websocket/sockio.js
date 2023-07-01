@@ -4,7 +4,7 @@ const { userJoin, getUserById, removeUser } = require('./user')
 const fs = require('fs')
 const path = require('path')
 const dao_file = require('../dao/file')
-const { getPHSize, serverURL, filePath } = require('../utils/utils.js')
+const { getPHSize, serverURL, filePath, clientURL } = require('../utils/utils.js')
 const getPixels = require("get-pixels")
 
 const dao_chat = require('../dao/chat')
@@ -18,7 +18,11 @@ const callback = require('./callback')
 
 function getSocket(server) {
   const io = socketio(server, {
-    cors: true,
+    cors: {
+      origin: [clientURL],
+      credentials: true
+    },
+    credentials: true,
     maxHttpBufferSize: 3 * 1024 * 1024,
   })
 
@@ -29,12 +33,13 @@ function getSocket(server) {
     // 根据 session 获取用户 id，查询用户信息
     const userInfo = socket.handshake.session.userId && await dao_user.getUserById(socket.handshake.session.userId)
     if (!userInfo) {
-      socket.emit('message', {
-        msgType: 'login',
-        status: 'logout',
-        time: timestamps,
-        show: false
-      })
+      console.log(socket.handshake.session, [clientURL]);
+      // socket.emit('message', {
+      //   msgType: 'login',
+      //   status: 'logout',
+      //   time: timestamps,
+      //   show: false
+      // })
       // 为 true 时彻底断开连接，否则只是断开命名空间
       socket.disconnect(true)
       return
@@ -194,7 +199,6 @@ function getSocket(server) {
 
     // 断开连接
     socket.on('disconnect', (reason) => {
-      console.log("id为 " + socket.id + " 的用户端口断开……断开原因：" + reason);
       removeUser(socket.id)
     })
   })

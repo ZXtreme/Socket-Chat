@@ -19,7 +19,7 @@
         <i class="iconfont icon-qiehuan" @click="isLogin = !isLogin"></i>
         <div class="reg-user-name">
           <a-upload name="file" list-type="picture-card" class="avatar-uploader upload-avatar" :show-upload-list="false"
-            action="/api/files/upload_file" :before-upload="beforeUpload" @change="handleChange">
+            :action="server + '/files/upload_file'" :before-upload="beforeUpload" @change="handleChange">
             <img v-if="registerInfo.avatar" :src="registerInfo.avatar" alt="avatar" />
             <div v-else>
               <loading-outlined v-if="imgLoading"></loading-outlined>
@@ -45,6 +45,7 @@ import { defineComponent, onMounted, reactive, toRefs } from 'vue'
 import { message } from 'ant-design-vue'
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import useAUploadHook from '@/hooks/aUploadHook'
+import { serverURL } from '@/utils/utils'
 
 export default defineComponent({
   name: 'ChatLogin',
@@ -67,6 +68,7 @@ export default defineComponent({
       // 是否是登录状态 还是注册状态
       isLogin: true,
     })
+    const server = serverURL
 
     onMounted(() => {
       if (store.state.userInfo) {
@@ -138,6 +140,7 @@ export default defineComponent({
       signin,
       handleChange,
       beforeUpload,
+      server
     }
   },
 })

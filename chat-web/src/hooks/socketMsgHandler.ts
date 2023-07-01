@@ -6,6 +6,7 @@ import { message, notification } from 'ant-design-vue'
 import { ComponentInternalInstance, getCurrentInstance } from 'vue'
 import ToneCmp from '@/components/ToneCmp.vue'
 import { useRouter } from 'vue-router'
+import { socketServerURL } from '@/utils/utils'
 
 export default function () {
   const store = useStore()
@@ -14,7 +15,9 @@ export default function () {
 
   // 建立 websocket 连接，此处本来根据跨域应该为 const socket = io('/socket.io')
   // 但是 socket.io 的请求地址默认自带 socket.io，所以此处只要传入'/'
-  const socket = io('/')
+  const socket = io(socketServerURL, {
+    withCredentials: true,
+  })
   store.commit('setSocket', socket)
 
   // 接收聊天信息

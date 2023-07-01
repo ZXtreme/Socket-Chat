@@ -10,11 +10,17 @@ const notificationRouter = require('./routes/notification')
 const fileRouter = require('./routes/file')
 const emoticonRouter = require('./routes/emoticon')
 const Session = require('express-session')
+const sharedsession = require('express-socket.io-session')
 const middleware = require('./middleware/middleware')
-const { filePath } = require('./utils/utils')
+const cors = require('cors')
+const { serverURL, filePath, clientURL } = require('./utils/utils')
 
 const app = express()
 
+app.use(cors({
+  origin: clientURL,
+  credentials: true
+}))
 app.use(multer({
   limits: { fileSize: 2 * 1024 * 1024 }
 }).array('file'))   // 接受一个以 file 命名的文件数组, 这些文件的信息保存在 req.files
@@ -32,7 +38,6 @@ const session = Session({
     maxAge: 12 * 60 * 60 * 1000
   }
 })
-const sharedsession = require('express-socket.io-session')
 
 app.use(session);
 app.use(middleware.authGuard)

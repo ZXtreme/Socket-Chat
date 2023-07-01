@@ -97,6 +97,7 @@ const login = async (req, res, next) => {
 
 // 判断用户是否处于登录状态，若是则返回用户信息
 const getLogin = async (req, res, next) => {
+  console.log(111, req.session["userId"]);
   res.set('content-type', 'application/json;charset=utf-8')
   const user = await dao_user.getUserById(req.session["userId"])
 

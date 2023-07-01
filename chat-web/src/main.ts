@@ -14,3 +14,4 @@ app.directive('lazyload', imgLazyLoad)
 
 app.use(antDesign)
 app.use(store).use(router).mount("#app");
+

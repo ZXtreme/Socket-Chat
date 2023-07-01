@@ -1,10 +1,10 @@
 import axios from 'axios'
 import type { AxiosResponse } from 'axios'
-
+import { serverURL } from './utils'
 import { message } from 'ant-design-vue'
 
 const client = axios.create({
-  baseURL: '/api',
+  baseURL: serverURL,
   timeout: 30000,
   withCredentials: true, // 启用跨域请求时是否发送凭据（如 cookies）
 })

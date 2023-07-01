@@ -2,7 +2,7 @@ import { api_getSessionList } from '@/api/session'
 import { api_getUserInfo } from '@/api/user'
 import { NotiMsg, ReceiveMsg, Session, SuccessMsg, User } from '@/type'
 
-import { onBeforeMount, onMounted } from 'vue'
+import { onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -14,7 +14,16 @@ export default function () {
   const route = useRoute()
 
   // 生命周期
-  onBeforeMount(() => {
+  onBeforeMount(async () => {
+    // 如果 vuex 存在数据,则去除现有的 list
+    if (store.state.sessionListData.list.length) {
+      store.commit('setSessionListData', {
+        list: [],
+        isMore: false,
+      })
+    }
+    await getSessionList()
+
     useSubscribe([
       // 监听收到的信息
       { msgName: 'chat', callback: (name: string, item: ReceiveMsg) => updateSession(item, 0, 'chat') },
@@ -26,18 +35,6 @@ export default function () {
 
     // 建立webrtc连接的hook
     useWebrtcHandler()
-  })
-
-  onMounted(() => {
-    // 如果 vuex 存在数据,则去除现有的 list
-    if (store.state.sessionListData.list.length) {
-      store.commit('setSessionListData', {
-        list: [],
-        isMore: false,
-      })
-    }
-
-    getSessionList()
   })
 
   // methods
