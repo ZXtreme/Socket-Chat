@@ -4,7 +4,7 @@
     <!-- 自己的画面 -->
     <video id="local-video" autoplay muted></video>
     <!-- 对方的画面 -->
-    <video id="remote-video" autoplay controls @click.prevent></video>
+    <video id="remote-video" autoplay @click.prevent></video>
     <div class="hangup-btn" @click="store.state.pc.hangup()">
       <i class="iconfont icon-guaduan"></i>
     </div>
