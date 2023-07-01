@@ -33,13 +33,12 @@ function getSocket(server) {
     // 根据 session 获取用户 id，查询用户信息
     const userInfo = socket.handshake.session.userId && await dao_user.getUserById(socket.handshake.session.userId)
     if (!userInfo) {
-      console.log(socket.handshake.session, [clientURL]);
-      // socket.emit('message', {
-      //   msgType: 'login',
-      //   status: 'logout',
-      //   time: timestamps,
-      //   show: false
-      // })
+      socket.emit('message', {
+        msgType: 'login',
+        status: 'logout',
+        time: timestamps,
+        show: false
+      })
       // 为 true 时彻底断开连接，否则只是断开命名空间
       socket.disconnect(true)
       return
@@ -57,13 +56,15 @@ function getSocket(server) {
     }
 
     const user = userJoin(socket.id, userInfo);
-    // 发送给当前客户端
-    socket.emit('message', {
-      msgType: 'login',
-      status: 'success',
-      content: '登录通知',
-      time: timestamps
-    })
+    // 发送给当前客户端，延迟 100 ms 保证客户端已经获取到 sessionList
+    setTimeout(() => {
+      socket.emit('message', {
+        msgType: 'login',
+        status: 'success',
+        content: '登录通知',
+        time: timestamps
+      })
+    }, 100)
 
     // 保存通知记录
     await dao_notification.addNotification(userInfo.id, 0, timestamps)

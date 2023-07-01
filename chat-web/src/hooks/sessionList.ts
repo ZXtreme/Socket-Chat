@@ -14,7 +14,7 @@ export default function () {
   const route = useRoute()
 
   // 生命周期
-  onBeforeMount(async () => {
+  onBeforeMount(() => {
     // 如果 vuex 存在数据,则去除现有的 list
     if (store.state.sessionListData.list.length) {
       store.commit('setSessionListData', {
@@ -22,7 +22,7 @@ export default function () {
         isMore: false,
       })
     }
-    await getSessionList()
+    getSessionList()
 
     useSubscribe([
       // 监听收到的信息
