@@ -50,6 +50,7 @@ CI/CD：gulp、github actions
 - 自定义表情实现了懒加载
 - 可展示 emoji 表情的输入框
 - 图片预览大图
+- 基于 Trie 的敏感词过滤
 
 ## 🎯 主要目录结构
 ```

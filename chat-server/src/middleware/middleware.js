@@ -9,7 +9,6 @@ const non_auth_req = {
 
 const authGuard = async (req, res, next) => {
   if (non_auth_req[req.url]) { next(); return; }
-  console.log(111, req.session);
   const userId = req.session["userId"]
   const user = userId && await dao_user.getUserById(userId)
 

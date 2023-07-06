@@ -44,6 +44,9 @@ const getPHSize = function(width, height, maxWidth = 200, minWidth = 50, maxHeig
 // 文件保存路径
 const filePath = path.resolve(__dirname, '../../uploadFile')
 
+// 敏感词词库路径
+const sensitiveWordsPath = path.join(__dirname, './sensitive_words.txt')
+
 // 请求图片的服务器路径
 // const serverURL = 'http://119.91.63.11:3000'
 const serverURL = 'http://localhost:3000'
@@ -58,5 +61,6 @@ module.exports = {
   filePath,
   serverURL,
   clientURL,
-  getPHSize
+  getPHSize,
+  sensitiveWordsPath
 }

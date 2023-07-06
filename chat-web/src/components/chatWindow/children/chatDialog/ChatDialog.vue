@@ -192,7 +192,7 @@ export default defineComponent({
         if (item.uuid === msg.uuid) {
           item.updatedAt = msg.updatedAt;
           item.status = 'success';
-          if (item.type === 1) {   // 图片，content 为图片链接
+          if (item.type === 1 || item.type === 0) {   // 图片，content 为图片链接
             item.content = msg.content;
           }
           break;

@@ -15,6 +15,7 @@ const dao_friend = require('../dao/friend')
 
 const control_session = require('../controllers/session')
 const callback = require('./callback')
+const filter_sensitive = require('../utils/filterSensitiveWords.js')
 
 function getSocket(server) {
   const io = socketio(server, {
@@ -90,9 +91,13 @@ function getSocket(server) {
       }
 
       let content = null;
+      console.log(data.content, filter_sensitive.filter(data.content));
       // data.type  0:文字    1:图片     2:文件      3: 自定义表情    4: 通知   5: 视频邀请
       // 文字聊天 或 自定义表情
-      if (data.type == 0 || data.type == 3 || data.type == 5) {
+      if (data.type == 0) {
+        content = filter_sensitive.filter(data.content)
+      }
+      else if (data.type == 3 || data.type == 5) {
         content = data.content
       } else if (data.type == 1 || data.type == 2) {
         // 存储文件
